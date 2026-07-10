@@ -1,0 +1,15 @@
+#
+#DAStudio Preference File
+#
+
+
+[DAStudio DDG]
+DDGFontSize=10
+
+[GLUEEditorPreferences]
+FirstTimeScrollNotification=0
+FirstTimeSystemComposerPortMoveTool=1
+
+[General]
+MatlabRelease=2026a
+
