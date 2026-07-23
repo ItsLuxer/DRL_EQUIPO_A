@@ -37,7 +37,7 @@ for k = 1:4
     add_block('simulink/Sources/Constant', cte, ...
         'Value',cmds{k,2}, 'Position',[260 y 320 y+30]);
     add_block('simulink/Sinks/Out1', [m1 '/' outNames{k}], ...
-        'Position',[420 y+5 450 y+25]);
+        'PortDimensions','1','Position',[420 y+5 450 y+25]);
     add_line(m1, [cmds{k,1} '/1'], [outNames{k} '/1'], 'autorouting','on');
     try
         sl = [m1 '/Slider_' cmds{k,1}];
@@ -70,7 +70,7 @@ inN = {'thr_pct','roll_deg','pitch_deg','yawrate_dps'};
 for k = 1:4
     y = 60 + (k-1)*90;
     add_block('simulink/Sources/In1',[m2 '/' inN{k}], ...
-        'Position',[40 y 70 y+20]);
+        'PortDimensions','1','Position',[40 y 70 y+20]);
 end
 
 % --- conversion de comandos ---
@@ -156,8 +156,8 @@ add_line(m2,'Integrador/1'  ,'Sel_theta/1'    ,'autorouting','on');
 add_line(m2,'Integrador/1'  ,'Sel_r/1'        ,'autorouting','on');
 
 % --- salidas ---
-add_block('simulink/Sinks/Out1',[m2 '/estados'],'Position',[1060 255 1090 275]);
-add_block('simulink/Sinks/Out1',[m2 '/empujes'],'Position',[1060 355 1090 375]);
+add_block('simulink/Sinks/Out1',[m2 '/estados'],'PortDimensions','12','Position',[1060 255 1090 275]);
+add_block('simulink/Sinks/Out1',[m2 '/empujes'],'PortDimensions','4','Position',[1060 355 1090 375]);
 add_line(m2,'Integrador/1','estados/1','autorouting','on');
 add_line(m2,'Motores/1'   ,'empujes/1','autorouting','on');
 save_system(m2);
@@ -169,8 +169,8 @@ cerrar_si_abierto(m3);
 new_system(m3); load_system(m3);
 set_param(m3,'InitFcn','DALTONICS_parametros');
 
-add_block('simulink/Sources/In1',[m3 '/estados'],'Position',[40 100 70 120]);
-add_block('simulink/Sources/In1',[m3 '/empujes'],'Position',[40 300 70 320]);
+add_block('simulink/Sources/In1',[m3 '/estados'],'PortDimensions','12','Position',[40 100 70 120]);
+add_block('simulink/Sources/In1',[m3 '/empujes'],'PortDimensions','4','Position',[40 300 70 320]);
 
 add_block('simulink/Signal Routing/Selector',[m3 '/Posicion_XYZ'], ...
     'InputPortWidth','12','Indices','[1 2 3]','Position',[150 70 220 100]);
