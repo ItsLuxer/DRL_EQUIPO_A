@@ -2,7 +2,7 @@ function Enviar_Mando_ESP32_Tierra()
     global CMD
 
     % Puerto COM de tu ESP32 de Tierra (Ajustar segun tu laptop)
-    puertoCOM = "COM5";
+    puertoCOM = "COM10"; 
     baudios = 115200;
 
     % 1. Inicializacion del vector de mando [Throttle; Roll; Pitch; Yaw]
