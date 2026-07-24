@@ -11,14 +11,20 @@ El objetivo principal de este proyecto es el diseño y construcción de un siste
 Este proyecto es posible gracias al trabajo colaborativo del siguiente equipo de ingenieros:
 
 * **Ingeniero Control:** José Eduardo
-
 * **Ingeniero Mecánico:** Héctor Manuel
-
 * **Ingeniero Eléctrico:** Héctor Cruz
-
 * **Ingeniero Software:** José Alberto
-
 * **Ingeniero Comunicaciones:** Darío Ibarra
+
+---
+
+# 📄 Prototipo
+
+<div align="center">
+  <img src="assets/prototype/image_00.jpeg" width="350" height="350" style="object-fit: cover; margin: 10px;"/>
+  <img src="assets/prototype/image_01.jpeg" width="350" height="350" style="object-fit: cover; margin: 10px;"/>
+  <img src="assets/prototype/image_02.jpeg" width="350" height="350" style="object-fit: cover; margin: 10px;"/>
+</div>
 
 ---
 
@@ -195,9 +201,8 @@ A continuación se documentan los componentes electrónicos y mecánicos utiliza
 </table>
 
 ---
----
 
-# 📄 Planos
+## 📄 Planos
 
 A continuación se documentan los planos técnicos utilizados en el desarrollo del prototipo.
 
