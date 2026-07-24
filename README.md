@@ -81,10 +81,25 @@ A continuación se documentan los componentes electrónicos y mecánicos utiliza
     </td>
   </tr>
   <tr>
-    <td align="center" width="200"><img src="assets/components/motor.png" width="180"/></td>
+    <td align="center" width="250"><img src="assets/components/AR0277-MPU6050-min.png" width="250"/></td>
     <td>
-      <b>Motores</b><br>
-      Tipo, KV y especificaciones técnicas.
+      <b>Módulo Giroscopio/Acelerómetro</b><br>
+      <ul>
+    <li><b>Módulo:</b> MPU6050 6 Grados de libertad.</li>
+    <li><b>Voltaje de funcionamiento:</b> 3.3 V a 5 V</li>
+    <li><b>Chip:</b> MPU-6050</li>
+    <li><b>Grados de libertad (DoF):</b> 6</li>
+    <li><b>Protocolo de comunicación:</b> I2C</li>
+    <li><b>Convertidor analógico a digital:</b> 16 bits en todos los ejes</li>
+    <li><b>Rangos:</b>
+      <ul>
+        <li><b>Giroscopio:</b> ±250, ±500, ±1000 y ±2000 °/s (dps)</li>
+        <li><b>Acelerómetro:</b> ±2, ±4, ±8 y ±16 g</li>
+      </ul>
+    </li>
+    <li><b>Dimensiones:</b> 40 mm x 25 mm x 5 mm</li>
+    <li><b>Peso:</b> 3 g</li>
+  </ul>
     </td>
   </tr>
   <tr>
