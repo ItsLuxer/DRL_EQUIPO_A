@@ -1,7 +1,12 @@
 # Procedimiento de vuelo — Daltonics_Vuelo (despegue/aterrizaje por tecla)
 
-Firmware: `Firmware/Daltonics_Vuelo/Daltonics_Vuelo.ino` (ESP32-C3 SuperMini, Aire)
-Mando: `CONTROL/Control_Vuelo_Daltonics.m` (MATLAB) + `ESP32_PRUEBATIERRA` (sin cambios)
+Firmware Aire: `Firmware/Daltonics_Vuelo/Daltonics_Vuelo.ino` (ESP32-C3 SuperMini)
+Firmware Tierra: `Firmware/Daltonics_Tierra/Daltonics_Tierra.ino` (con telemetría al operador)
+Mando: `CONTROL/Control_Vuelo_Daltonics.m` (MATLAB)
+
+**Telemetría**: el dron reporta a MATLAB a 10 Hz su roll/pitch, gas, modo y alertas
+(emergencia, IMU caída, aterrizado) — se ve en la ventana del mando como "DRON >>".
+El viejo `ESP32_PRUEBATIERRA` sigue sirviendo como respaldo, pero sin telemetría.
 
 ## Máquina de estados (campo A de la trama)
 

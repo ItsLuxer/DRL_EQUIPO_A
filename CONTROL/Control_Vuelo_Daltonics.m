@@ -38,6 +38,10 @@ function Control_Vuelo_Daltonics()
     CMD = [0; 0; 0; 0];
     MODO = 0;  % 0=desarmado 1=idle 2=vuelo 3=aterrizaje
 
+    % Ultima telemetria recibida del dron (via Tierra: lineas "TL,...")
+    telem = struct('ok',false,'roll',0,'pitch',0,'thr',0,'modo',0,...
+                   'emg',false,'fs',false,'atz',false,'mpu',false,'t',0);
+
     % Abrir puerto serial
     try
         espTierra = serialport(puertoCOM, baudios);
@@ -110,6 +114,25 @@ function Control_Vuelo_Daltonics()
     end
 
     function enviarTramaSerial(puerto, textoUI)
+        % --- Leer telemetria del dron (lineas "TL,roll,pitch,thr,modo,flags") ---
+        while puerto.NumBytesAvailable > 0
+            linea = readline(puerto);
+            if startsWith(linea, "TL,")
+                v = sscanf(linea, 'TL,%f,%f,%f,%d,%d');
+                if numel(v) == 5
+                    telem.roll  = v(1);  telem.pitch = v(2);
+                    telem.thr   = v(3);  telem.modo  = v(4);
+                    fl          = v(5);
+                    telem.emg   = bitand(fl, 1) > 0;
+                    telem.fs    = bitand(fl, 2) > 0;
+                    telem.atz   = bitand(fl, 4) > 0;
+                    telem.mpu   = bitand(fl, 8) > 0;
+                    telem.ok    = true;
+                    telem.t     = tic;
+                end
+            end
+        end
+
         u_throttle = round(1000 + (CMD(1) * 10));
         u_roll     = round(1500 + (CMD(2) * 5));
         u_pitch    = round(1500 + (CMD(3) * 5));
@@ -120,17 +143,35 @@ function Control_Vuelo_Daltonics()
         writeline(puerto, trama);
 
         nombresModo = {'DESARMADO','IDLE (motores girando)','VUELO / HOVER','ATERRIZANDO'};
+
+        % --- Bloque de telemetria del dron ---
+        if telem.ok && toc(telem.t) < 1.0
+            alerta = '';
+            if telem.emg,      alerta = '  *** EMERGENCIA: >45 deg, motores cortados. Q y de nuevo E ***';
+            elseif ~telem.mpu, alerta = '  *** SIN IMU: no puede armar ***';
+            elseif telem.atz,  alerta = '  (aterrizado, en idle)';
+            end
+            lineaTelem = sprintf(['  DRON >> roll:%6.1f deg  pitch:%6.1f deg  gas:%5.1f %%  modo:%s\n%s'],...
+                telem.roll, telem.pitch, telem.thr, nombresModo{telem.modo+1}, alerta);
+        elseif telem.ok
+            lineaTelem = '  DRON >> (telemetria perdida hace >1 s)';
+        else
+            lineaTelem = '  DRON >> (sin telemetria aun - esperando enlace)';
+        end
+
         set(textoUI,'String',sprintf([...
             '=== ESCUDERIA DALTONICS - CONTROL DE VUELO ===\n\n',...
-            '  MODO: %s\n\n',...
+            '  MODO PEDIDO: %s\n\n',...
             '  Throttle: %5.1f %%\n  Roll:     %5.1f deg\n',...
             '  Pitch:    %5.1f deg\n  Yaw:      %5.1f dps\n\n',...
+            '%s\n\n',...
             '  TRAMA (50 Hz): %s\n\n',...
             '  E: Armar (idle)   T: Despegue   L: Aterrizar   Q: DESARMAR\n',...
             '  W/S gas   R hover   flechas mover   A/D girar   ESPACIO nivelar\n\n',...
             '  LED del dron: verde=idle  azul=volando  amarillo=aterrizando\n',...
             '                celeste=aterrizado  rojo=EMERGENCIA (Q y de nuevo E)'],...
-            nombresModo{MODO+1}, CMD(1), CMD(2)*25/100, CMD(3)*25/100, CMD(4)*120/100, trama));
+            nombresModo{MODO+1}, CMD(1), CMD(2)*25/100, CMD(3)*25/100, CMD(4)*120/100, ...
+            lineaTelem, trama));
     end
 
     function cerrarPrograma(timerObj, puertoObj, fig)

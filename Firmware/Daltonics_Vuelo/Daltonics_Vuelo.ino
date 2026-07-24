@@ -55,10 +55,29 @@ PaqueteControl comandosDron = {1000, 1500, 1500, 1500, M_DESARMADO};
 unsigned long ultimaVezRecibido = 0;
 const unsigned long TIMEOUT_FAILSAFE = 500; // ms sin señal -> failsafe
 
+// ================= TELEMETRIA HACIA TIERRA (dron -> operador) =================
+// El dron aprende el MAC de Tierra del primer paquete recibido y le manda
+// su estado a 10 Hz. Tierra lo reenvia por USB a MATLAB como "TL,...".
+struct __attribute__((packed)) PaqueteTelemetria {
+    float   rollDeg;   // actitud estimada
+    float   pitchDeg;
+    float   thrPct;    // gas aplicado ahora (thrActual)
+    uint8_t modo;      // 0-3
+    uint8_t flags;     // b0=emergencia b1=failsafe b2=aterrizado b3=mpuOK
+};
+uint8_t macTierra[6];
+volatile bool macTierraCapturada = false;
+bool peerTierraListo = false;
+unsigned long ultimoTelem = 0;
+
 void onDataRecv(const esp_now_recv_info_t *recv_info, const uint8_t *incomingData, int len) {
     if (len == sizeof(PaqueteControl)) {
         memcpy(&comandosDron, incomingData, sizeof(comandosDron));
         ultimaVezRecibido = millis();
+        if (!macTierraCapturada) {
+            memcpy(macTierra, recv_info->src_addr, 6);
+            macTierraCapturada = true;
+        }
     }
 }
 
@@ -463,6 +482,26 @@ void loop() {
         }
     }
     aro.show();
+
+    // --- Telemetria hacia Tierra ~10 Hz ---
+    if (macTierraCapturada && !peerTierraListo) {
+        esp_now_peer_info_t peer = {};
+        memcpy(peer.peer_addr, macTierra, 6);
+        peer.channel = 0;
+        peer.encrypt = false;
+        if (esp_now_add_peer(&peer) == ESP_OK) peerTierraListo = true;
+    }
+    if (peerTierraListo && millis() - ultimoTelem > 100) {
+        ultimoTelem = millis();
+        PaqueteTelemetria tl;
+        tl.rollDeg  = rollEst * RAD_TO_DEG;
+        tl.pitchDeg = pitchEst * RAD_TO_DEG;
+        tl.thrPct   = thrActual;
+        tl.modo     = (uint8_t)modo;
+        tl.flags    = (emergencia ? 1 : 0) | (senalPerdida ? 2 : 0) |
+                      (aterrizado ? 4 : 0) | (mpuOK ? 8 : 0);
+        esp_now_send(macTierra, (uint8_t *)&tl, sizeof(tl));
+    }
 
     // --- Debug ~10 Hz ---
     if (millis() - ultimoDebug > 100) {
