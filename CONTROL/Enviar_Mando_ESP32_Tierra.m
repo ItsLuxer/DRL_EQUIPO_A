@@ -1,4 +1,4 @@
-function Enviar_Mando_ESP32_Tierra()
+xfunction Enviar_Mando_ESP32_Tierra()
     global CMD
 
     % Puerto COM de tu ESP32 de Tierra (Ajustar segun tu laptop)
