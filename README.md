@@ -28,56 +28,125 @@ A continuación se documentan los componentes electrónicos y mecánicos utiliza
 
 <table>
   <tr>
+    <td align="center" width="250"><img src="assets/components/AR3691-ESP32-CH340C-USB-Tipo-C-1.png" width="250"/></td>
+    <td>
+      <b>ESP32 - Base</b><br>
+      <ul>
+        <li><b>Modelo:</b> ESP32 DEVKIT V1</li>
+        <li><b>Puerto:</b> Micro USB o USB-C (según versión)</li>
+        <li><b>Chip USB-Serial:</b> CP2102 (Micro USB) / CH340 (USB-C)</li>
+        <li><b>Núcleos:</b> 2 (Tensilica Xtensa 32-bit LX6)</li>
+        <li><b>Frecuencia de reloj:</b> hasta 240 MHz</li>
+        <li><b>Desempeño:</b> hasta 600 DMIPS</li>
+        <li><b>Voltaje de alimentación (USB):</b> 5 V DC</li>
+        <li><b>Voltaje de E/S:</b> 3.3 V DC</li>
+        <li><b>Consumo en modo suspensión:</b> 5 µA</li>
+        <li><b>Pines físicos:</b> 30 (24 GPIO digitales)</li>
+        <li><b>ADC:</b> 2 canales de 12 bits (SAR), hasta 18 canales</li>
+        <li><b>Conectividad:</b> WiFi 802.11 b/g/n/e/i (150 Mbit/s @ 2.4 GHz) + Bluetooth 4.2 BR/EDR/BLE, antena en PCB</li>
+        <li><b>Memoria:</b> 448 KB ROM, 520 KB SRAM, 6 KB SRAM RTC, soporte QSPI multi-chip</li>
+        <li><b>Seguridad:</b> IEEE 802.11 (WFA, WPA/WPA2, WAPI), cifrado por hardware AES, SHA-2, RSA, ECC, RNG</li>
+        <li><b>Dimensiones:</b> 52 mm x 28.5 mm x 15 mm</li>
+        <li><b>Peso:</b> 9 g</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="250"><img src="assets/components/ESP32-C3-SuperMini-Tipo-C-Tarjeta-de-Expansion-Tercera-scaled.png" width="250"/></td>
+    <td>
+      <b>ESP32 - Aire</b><br>
+      <ul>
+        <li><b>Modelo:</b> ESP32-C3 Super Mini</li>
+        <li><b>Chip:</b> ESP32-C3, 32-bit RISC-V, 160 MHz</li>
+        <li><b>Puerto:</b> USB Tipo C</li>
+        <li><b>Voltaje de operación:</b> 3 V a 3.6 V</li>
+        <li><b>Rango de temperatura:</b> -40° a 85°C</li>
+        <li><b>WiFi:</b> IEEE 802.11 b/g/n (2.4 GHz)</li>
+        <li><b>Bluetooth:</b> Bluetooth 5, Bluetooth Mesh</li>
+        <li><b>Memoria:</b> 384 KB ROM, 400 KB SRAM, 4 MB flash</li>
+        <li><b>Periféricos:</b> 1× I2C, 1× SPI, 2× UART, 11× PWM, 4× ADC</li>
+        <li><b>Dimensiones:</b> 22.5 mm × 18 mm</li>
+        <li><b>Peso:</b> 3.05 g</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="250"><img src="assets/components/AR4224-Tarjeta-de-Expansion-V1.png" width="250"/></td>
+    <td>
+      <b>Tarjeta de Expansión</b><br>
+      <ul>
+        <li><b>Entrada/Fuente:</b> USB Tipo C / Batería de Litio 3.7 V</li>
+        <li><b>Voltajes de salida:</b> 5 V y 3.3 V</li>
+        <li><b>Voltaje de batería:</b> 3.7 V</li>
+        <li><b>Dimensiones:</b> 37.4 mm × 22.7 mm</li>
+        <li><b>Peso:</b> 8 g</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
     <td align="center" width="250"><img src="assets/components/AR1660-Motor-Brushless-A2212-KV1400-PINOUT.png" width="250"/></td>
     <td>
       <b>Motor Brushless</b><br>
-  <ul>
-    <li><b>Modelo:</b> A2212/6 T</li>
-    <li><b>Motor KV (RPM / V):</b> KV2200</li>
-    <li><b>RPM / V:</b> 2200 KV (2200 revoluciones por minuto por cada volt suministrado)</li>
-    <li><b>Voltaje:</b> 7.2 V a 12 V</li>
-    <li><b>Corriente:</b> 12 A / 60 s</li>
-    <li><b>Eficiencia máxima:</b> 80%</li>
-    <li><b>Corriente máxima de eficiencia:</b> 4 ~ 10 A (> 75%)</li>
-    <li><b>Corriente sin carga:</b> 10 V / 0.5 A</li>
-    <li><b>Tamaño de motor (con eje):</b> 27.5 mm x 38.5 mm</li>
-    <li><b>Diámetro del eje:</b> 3.17 mm (3.2 mm)</li>
-    <li><b>Longitud del diámetro:</b> 11.5 mm</li>
-    <li><b>Peso de motor:</b> 47 g</li>
-  </ul>
+      <ul>
+        <li><b>Modelo:</b> A2212/6 T</li>
+        <li><b>Motor KV (RPM / V):</b> KV2200</li>
+        <li><b>RPM / V:</b> 2200 KV (2200 revoluciones por minuto por cada volt suministrado)</li>
+        <li><b>Voltaje:</b> 7.2 V a 12 V</li>
+        <li><b>Corriente:</b> 12 A / 60 s</li>
+        <li><b>Eficiencia máxima:</b> 80%</li>
+        <li><b>Corriente máxima de eficiencia:</b> 4 ~ 10 A (> 75%)</li>
+        <li><b>Corriente sin carga:</b> 10 V / 0.5 A</li>
+        <li><b>Tamaño de motor (con eje):</b> 27.5 mm x 38.5 mm</li>
+        <li><b>Diámetro del eje:</b> 3.17 mm (3.2 mm)</li>
+        <li><b>Longitud del diámetro:</b> 11.5 mm</li>
+        <li><b>Peso:</b> 47 g</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="250"><img src="assets/components/Propela.png" width="250"/></td>
+    <td>
+      <b>Propela</b><br>
+      <ul>
+        <li><b>Color:</b> Negro</li>
+        <li><b>Orificio de eje:</b> 5 mm</li>
+        <li><b>Configuración del paquete:</b> 4 piezas (2 CW / 2 CCW)</li>
+        <li><b>Dimensiones:</b> 5 x 4.5"</li>
+        <li><b>Peso:</b> 3.8 g c/u</li>
+      </ul>
     </td>
   </tr>
   <tr>
     <td align="center" width="250"><img src="assets/components/AR1659-ESC-30A-Driver-Motor-Brushless.png" width="250"/></td>
     <td>
       <b>ESC</b><br>
-<ul>
-    <li><b>Modelo:</b> ESC 30A Driver Motor Brushless</li>
-    <li><b>Voltaje de entrada:</b> 2–4 celdas de litio o 5–12 celdas NiCd/NiMH</li>
-    <li><b>Corriente continua:</b> 30 A</li>
-    <li><b>Corriente máxima (ráfaga):</b> 40 A</li>
-    <li><b>Salida BEC:</b> 5 V / 2 A</li>
-    <li><b>Frecuencia de trabajo:</b> 50–60 Hz (señal PWM)</li>
-    <li><b>RPM máximas soportadas:</b> 210,000 RPM (2 polos), 70,000 RPM (6 polos), 35,000 RPM (12 polos)</li>
-    <li><b>Señal de control:</b> PWM estándar (1000–2000 µs)</li>
-    <li><b>Tamaño:</b> 57 mm × 25 mm × 8 mm</li>
-    <li><b>Peso neto:</b> 27 g</li>
-  </ul>
+      <ul>
+        <li><b>Modelo:</b> ESC 30A Driver Motor Brushless</li>
+        <li><b>Voltaje de entrada:</b> 2–4 celdas de litio o 5–12 celdas NiCd/NiMH</li>
+        <li><b>Corriente continua:</b> 30 A</li>
+        <li><b>Corriente máxima (ráfaga):</b> 40 A</li>
+        <li><b>Salida BEC:</b> 5 V / 2 A</li>
+        <li><b>Frecuencia de trabajo:</b> 50–60 Hz (señal PWM)</li>
+        <li><b>RPM máximas soportadas:</b> 210,000 RPM (2 polos), 70,000 RPM (6 polos), 35,000 RPM (12 polos)</li>
+        <li><b>Señal de control:</b> PWM estándar (1000–2000 µs)</li>
+        <li><b>Tamaño:</b> 57 mm × 25 mm × 8 mm</li>
+        <li><b>Peso neto:</b> 27 g</li>
+      </ul>
     </td>
   </tr>
   <tr>
     <td align="center" width="250"><img src="assets/components/YT_5067.png" width="250"/></td>
     <td>
-      <b>Bateria</b><br>
-  <ul>
-    <li><b>Voltaje:</b> 11.1 V</li>
-    <li><b>Celdas:</b> 3S</li>
-    <li><b>Capacidad de descarga:</b> 30 a 60C</li>
-    <li><b>Corriente:</b> 1,400 mAh</li>
-    <li><b>Descarga continua:</b> 25C</li>
-    <li><b>Tamaño:</b> 85.7 mm x 29.8 mm x 20.2 mm</li>
-    <li><b>Peso neto:</b> 125 g</li>
-  </ul>
+      <b>Batería</b><br>
+      <ul>
+        <li><b>Voltaje:</b> 11.1 V</li>
+        <li><b>Celdas:</b> 3S</li>
+        <li><b>Capacidad de descarga:</b> 30 a 60C</li>
+        <li><b>Corriente:</b> 1,400 mAh</li>
+        <li><b>Descarga continua:</b> 25C</li>
+        <li><b>Tamaño:</b> 85.7 mm x 29.8 mm x 20.2 mm</li>
+        <li><b>Peso neto:</b> 125 g</li>
+      </ul>
     </td>
   </tr>
   <tr>
@@ -85,35 +154,42 @@ A continuación se documentan los componentes electrónicos y mecánicos utiliza
     <td>
       <b>Módulo Giroscopio/Acelerómetro</b><br>
       <ul>
-    <li><b>Módulo:</b> MPU6050 6 Grados de libertad.</li>
-    <li><b>Voltaje de funcionamiento:</b> 3.3 V a 5 V</li>
-    <li><b>Chip:</b> MPU-6050</li>
-    <li><b>Grados de libertad (DoF):</b> 6</li>
-    <li><b>Protocolo de comunicación:</b> I2C</li>
-    <li><b>Convertidor analógico a digital:</b> 16 bits en todos los ejes</li>
-    <li><b>Rangos:</b>
-      <ul>
-        <li><b>Giroscopio:</b> ±250, ±500, ±1000 y ±2000 °/s (dps)</li>
-        <li><b>Acelerómetro:</b> ±2, ±4, ±8 y ±16 g</li>
+        <li><b>Módulo:</b> MPU6050 6 Grados de libertad.</li>
+        <li><b>Voltaje de funcionamiento:</b> 3.3 V a 5 V</li>
+        <li><b>Chip:</b> MPU-6050</li>
+        <li><b>Grados de libertad (DoF):</b> 6</li>
+        <li><b>Protocolo de comunicación:</b> I2C</li>
+        <li><b>Convertidor analógico a digital:</b> 16 bits en todos los ejes</li>
+        <li><b>Rangos:</b>
+          <ul>
+            <li><b>Giroscopio:</b> ±250, ±500, ±1000 y ±2000 °/s (dps)</li>
+            <li><b>Acelerómetro:</b> ±2, ±4, ±8 y ±16 g</li>
+          </ul>
+        </li>
+        <li><b>Dimensiones:</b> 40 mm x 25 mm x 5 mm</li>
+        <li><b>Peso:</b> 3 g</li>
       </ul>
-    </li>
-    <li><b>Dimensiones:</b> 40 mm x 25 mm x 5 mm</li>
-    <li><b>Peso:</b> 3 g</li>
-  </ul>
     </td>
   </tr>
   <tr>
-    <td align="center" width="200"><img src="assets/components/receiver.png" width="180"/></td>
+    <td align="center" width="250"><img src="assets/components/modulo-neopixel-circular-rgb-led-de-12-bit.png" width="250"/></td>
     <td>
-      <b>Receptor / Módulo de Comunicación</b><br>
-      Protocolo utilizado y frecuencia de operación.
-    </td>
-  </tr>
-  <tr>
-    <td align="center" width="200"><img src="assets/components/battery.png" width="180"/></td>
-    <td>
-      <b>Batería</b><br>
-      Capacidad, voltaje y tipo de celdas.
+      <b>Iluminación Neopixel</b><br>
+      <ul>
+        <li><b>Chip controlador:</b> WS2812B</li>
+        <li><b>Voltaje de operación:</b> 5 V</li>
+        <li><b>Número de LEDs:</b> 12 piezas</li>
+        <li><b>Consumo por píxel:</b> 18 mA</li>
+        <li><b>Velocidad de transmisión de datos:</b> hasta 800 Kbps</li>
+        <li><b>Colores por píxel:</b> 16,777,216 (256 niveles por canal RGB)</li>
+        <li><b>Frecuencia de escaneo:</b> ≥ 400 Hz/s</li>
+        <li><b>Interfaz:</b> cascada en serie (una línea de señal)</li>
+        <li><b>Distancia de transmisión entre puntos:</b> < 5 m sin circuito adicional</li>
+        <li><b>Protección:</b> polaridad inversa integrada</li>
+        <li><b>Diámetro interior:</b> 35.5 mm</li>
+        <li><b>Diámetro exterior:</b> 50 mm</li>
+        <li><b>Peso:</b> 6 g</li>
+      </ul>
     </td>
   </tr>
 </table>
