@@ -26,7 +26,13 @@ function Control_Vuelo_Daltonics()
     HOVER_PCT = 45.0;   % gas inicial de hover (1450us medido en banco --
                         % con fuente dudosa: ajustar con W/S en el aire)
     PASO_TRIM = 0.5;    % W/S: +/- 0.5% por pulsacion
-    PASO_MANIOBRA = 50.0;
+
+    % Mismas unidades que el gemelo digital (DALTONICS_mando.m):
+    % flechas = +/-12 grados de inclinacion, A/D = +/-60 dps de yaw.
+    % El firmware mapea 100% de stick a 25 deg y 120 dps, por eso la
+    % conversion a porcentaje de stick:
+    ANG_MOVER_DEG = 12;  PASO_RP  = ANG_MOVER_DEG / 25 * 100;   % = 48%
+    YAW_GIRO_DPS  = 60;  PASO_YAW = YAW_GIRO_DPS / 120 * 100;   % = 50%
 
     % [Throttle; Roll; Pitch; Yaw] en porcentaje
     CMD = [0; 0; 0; 0];
@@ -81,15 +87,16 @@ function Control_Vuelo_Daltonics()
                 MODO = 0; CMD = [0; 0; 0; 0];
                 fprintf('>> DESARMADO / CORTE\n');
 
-            % ----- VUELO -----
+            % ----- VUELO (mismas unidades que el gemelo digital) -----
             case 'w',          if MODO == 2, CMD(1) = min(70, CMD(1) + PASO_TRIM); end
             case 's',          if MODO == 2, CMD(1) = max(20, CMD(1) - PASO_TRIM); end
-            case 'uparrow',    CMD(3) = min(100, PASO_MANIOBRA);
-            case 'downarrow',  CMD(3) = max(-100, -PASO_MANIOBRA);
-            case 'rightarrow', CMD(2) = min(100, PASO_MANIOBRA);
-            case 'leftarrow',  CMD(2) = max(-100, -PASO_MANIOBRA);
-            case 'a',          CMD(4) = -PASO_MANIOBRA;
-            case 'd',          CMD(4) =  PASO_MANIOBRA;
+            case 'r',          if MODO == 2, CMD(1) = HOVER_PCT; end % reset hover
+            case 'uparrow',    CMD(3) =  PASO_RP;   % adelante  (+12 deg)
+            case 'downarrow',  CMD(3) = -PASO_RP;   % atras     (-12 deg)
+            case 'rightarrow', CMD(2) =  PASO_RP;   % derecha   (+12 deg)
+            case 'leftarrow',  CMD(2) = -PASO_RP;   % izquierda (-12 deg)
+            case 'a',          CMD(4) =  PASO_YAW;  % girar izq (+60 dps)
+            case 'd',          CMD(4) = -PASO_YAW;  % girar der (-60 dps)
             case 'space',      CMD(2:4) = 0;
         end
     end
@@ -116,14 +123,14 @@ function Control_Vuelo_Daltonics()
         set(textoUI,'String',sprintf([...
             '=== ESCUDERIA DALTONICS - CONTROL DE VUELO ===\n\n',...
             '  MODO: %s\n\n',...
-            '  Gas hover: %5.1f %%   Roll: %5.1f   Pitch: %5.1f   Yaw: %5.1f\n\n',...
+            '  Throttle: %5.1f %%\n  Roll:     %5.1f deg\n',...
+            '  Pitch:    %5.1f deg\n  Yaw:      %5.1f dps\n\n',...
             '  TRAMA (50 Hz): %s\n\n',...
             '  E: Armar (idle)   T: Despegue   L: Aterrizar   Q: DESARMAR\n',...
-            '  W/S: Trim gas     Flechas: Roll/Pitch   A/D: Yaw\n',...
-            '  ESPACIO: Nivelar\n\n',...
+            '  W/S gas   R hover   flechas mover   A/D girar   ESPACIO nivelar\n\n',...
             '  LED del dron: verde=idle  azul=volando  amarillo=aterrizando\n',...
             '                celeste=aterrizado  rojo=EMERGENCIA (Q y de nuevo E)'],...
-            nombresModo{MODO+1}, CMD(1), CMD(2), CMD(3), CMD(4), trama));
+            nombresModo{MODO+1}, CMD(1), CMD(2)*25/100, CMD(3)*25/100, CMD(4)*120/100, trama));
     end
 
     function cerrarPrograma(timerObj, puertoObj, fig)
